@@ -1,0 +1,118 @@
+.form-group {
+    /*text-align: center;*/
+}
+
+label .label {
+    color: #6d7784;
+}
+
+input {
+    /*width: 75%!important;*/
+    height: 40px;
+}
+
+.m-portlet.m-portlet--info.m-portlet--head-solid-bg .m-portlet__head {
+    background-color: #36a3f7 !important;
+    border-color: #36a3f7 !important;
+}
+
+.m-portlet.m-portlet--brand.m-portlet--head-solid-bg .m-portlet__head {
+    background-color: #716aca !important;
+    border-color: #716aca !important;
+}
+
+.m-btn--icon.remove {
+    border-color: #fff !important;
+    color: #fff !important;
+    background-color: transparent;
+}
+
+/*Delete btns*/
+button.m-btn--info.remove:hover {
+    border-color: transparent !important;
+    background-color: #3592dc !important;
+    /*color: #36a3f7 !important;*/
+}
+
+button.m-btn--brand.remove:hover {
+    border-color: transparent !important;
+    background-color: #5E58AF !important;
+    /*color: #36a3f7 !important;*/
+}
+
+/*Virtual save*/
+a.btn.btn-outline-info.m-btn.m-btn--icon.m-btn--pill.virtual-save {
+    color: #36a3f7 !important;
+    background-color: #fff;
+}
+
+a.btn.btn-outline-brand.m-btn.m-btn--icon.m-btn--pill.virtual-save {
+    color: #5E58AF !important;
+    background-color: white;
+}
+
+/*portlet toggle*/
+.portlet-toggle {
+    width: 63px !important;
+    height: 63px !important;
+    margin-left: -28px !important;
+}
+
+.portlet-toggle:hover {
+    background-color: transparent !important;
+    border: transparent;
+}
+
+.portlet-toggle:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    height: 105%;
+    /* or 100px */
+    background: #fff;
+}
+
+button.btn.m-btn.m-btn--icon.m-btn--icon-only.portlet-toggle {
+    background-color: transparent !important;
+    border: transparent;
+}
+
+body.dragging,
+body.dragging * {
+    cursor: move !important;
+}
+
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+ol.example li.placeholder {
+    position: relative;
+    /** More li styles **/
+}
+
+ol.example li.placeholder:before {
+    position: absolute;
+    /** Define arrowhead **/
+}
+
+.m-divider {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.m-portlet {
+    margin-bottom: 0px !important;
+}
+
+span.add_form_here {
+    cursor: pointer;
+}
+
+ol.drop_targets {
+    list-style-type: none;
+}

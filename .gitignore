@@ -1,0 +1,17 @@
+/node_modules
+/public/hot
+/public/storage
+/public/.htaccess
+/public/uploads/*
+/public/error_log
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+.env
+.idea
+composer.lock
+error_log
