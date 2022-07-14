@@ -45,24 +45,72 @@ class HomeController extends Controller
             ]
         ];
         
-        $total = 0;
+        $total1 = 0;
+        $total2 = 0;
+        $total3 = 0;
+        $question_order = 1;
         foreach($req->input() as $key => $input){
+            
             if($key == "_token"){
                 continue;
             }
-            $total = $total + $input;
+            
+            if($question_order <=5){
+                $total1 = $total1 + $input;
+            }
+
+            if($question_order >5 && $question_order <=10){
+                $total2 = $total2 + $input;
+            }
+
+            if($question_order >10 && $question_order <=15){
+                $total3 = $total3 + $input;
+            }
+            $question_order = $question_order+1;
 
         }
-        $score = $total/3;
-        if($score < 3.5){
-            $result = $results[1]; 
+
+
+
+        
+        if($total1 < 3.5){
+            $result[0] = $results[1][0]; 
         }
-        if($score >= 3.5 && $score < 7){
-            $result = $results[2]; 
+        if($total1 >= 3.5 && $total1 < 7){
+            $result[0] = $results[1][1]; 
         }
 
-        if($score >= 7){
-            $result = $results[3]; 
+        if($total1 >= 7){
+            $result[0] = $results[1][2]; 
+        }
+
+
+
+
+
+        if($total2 < 3.5){
+            $result[1] = $results[2][0]; 
+        }
+        if($total2 >= 3.5 && $total2 < 7){
+            $result[1] = $results[2][1]; 
+        }
+
+        if($total2 >= 7){
+            $result[1] = $results[2][2]; 
+        }
+
+
+
+
+        if($total3 < 3.5){
+            $result[2] = $results[3][0]; 
+        }
+        if($total3 >= 3.5 && $total3 < 7){
+            $result[2] = $results[3][1]; 
+        }
+
+        if($total3 >= 7){
+            $result[2] = $results[3][2]; 
         }
         return view('result',compact('result'));
     }

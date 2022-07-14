@@ -3,16 +3,17 @@ body{
 	font-family: 'Almarai', sans-serif !important;
 	margin: 0;
 	margin-bottom: 100px;
+	letter-spacing: 1px !important;
+	line-height: 50px !important;
 }
 
 .title{
 	background-color: #00487e;
 	color: #fff;
-	padding: 10px 50px;
-	width: 40%;
-	min-width: 300px;
+	padding: 10px 100px;
 	border-top-left-radius: 25px;
 	border-bottom-left-radius: 25px;
+	font-size: 25px;
 }
 p,table{
 	margin:  50px;

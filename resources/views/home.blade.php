@@ -19,7 +19,7 @@
         <img src="/images/tnmeya-logo.png" class="logo">
     </div>
     <div id="quiz">
-        <h2 class="title">قيّم علاقتك بابنك</h2>
+        <span class="title">قيّم علاقتك بابنك</span>
         <p>عزيزي الأب/ عزيزتي الأم
 لقد أعد لك خبراؤنا الاختبار الذي بين يديك، ليساعدك على فهم و تقييم حالة التواصل بينك و بين ابنك، يظهر لك هذا الاختبار نقاط القوة و الضعف في التواصل بينكما، كما انه يساعدك على تطويير وتحسين العلاقة بينك و بين ابنك.
 الاختبار بسيط لا يحتاج الى أكثر من 3 دقائق و نتائجه سرية تماما، ننصحك بالاجابة بشفافية لتحصل على أفضل تقييم، كما ينصح بتقييم علاقتك بابنائك باعتبار كل ابن على حدى في كل مرة. 
@@ -100,6 +100,9 @@ function showRequest(formData, jqForm, options) {
     var unAnswered = $("table").find(`[data-done='0']`).length;
     if(unAnswered != 0){
         $("table").find(`[data-done='0']`).addClass('error');
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("table").find(`[data-done='0']:first`).offset().top
+        }, 1000);
         return false; 
     }
     return true;
