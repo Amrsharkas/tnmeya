@@ -6,6 +6,8 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/', 'Auth\LoginController@login');
 Route::get('/index', 'HomeController@home');
 Route::post('/result', 'HomeController@result');
+Route::get('/index2', 'TawakkolController@home');
+Route::post('/result2', 'TawakkolController@result');
 Route::get('/deploy', ['uses' => 'AdminController@deploy'])->name('deploy');
 
 Route::group(['middleware' => ['auth'], 'prefix' => "files", 'as' => "files."], function () {

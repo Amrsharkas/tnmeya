@@ -8,45 +8,53 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/style2.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
     <script src="https://malsup.github.io/jquery.form.js"></script>
-        <title>قيّم علاقتك بابنك</title>
+        <title>مقياس الثقة العام</title>
 
     </head>
     <body style="direction: rtl;">
         <div class="header">
-        <img src="/images/tnmeya-logo.png" class="logo">
+        <img src="/images/logo2.jpeg" class="logo">
     </div>
     <div id="quiz">
-        <span class="title">قيّم علاقتك بابنك</span>
-        <p>عزيزي الأب/ عزيزتي الأم
-لقد أعد لك خبراؤنا الاختبار الذي بين يديك، ليساعدك على فهم و تقييم حالة التواصل بينك و بين ابنك، يظهر لك هذا الاختبار نقاط القوة و الضعف في التواصل بينكما، كما انه يساعدك على تطويير وتحسين العلاقة بينك و بين ابنك.
-الاختبار بسيط لا يحتاج الى أكثر من 3 دقائق و نتائجه سرية تماما، ننصحك بالاجابة بشفافية لتحصل على أفضل تقييم، كما ينصح بتقييم علاقتك بابنائك باعتبار كل ابن على حدى في كل مرة. 
+        <span class="title">مقياس الثقة العام</span>
+        <p>عزيزي المتدرب أشكر تفضلك بأداء هذا المقياس المصمم لقياس درجة الثقة بالنفس، وأرجو منك الإجابة عن جميع فقرات هذا الاستبيان، مع رجائي الحار أن تكون إجاباتك على درجة عالية من الموضوعية والشفافية، مع الأخذ بعين الاعتبار أنه لا توجد إجابات صحيحة وأخرى خاطئة.
 </p>
-<form method="post" action="/result" id="myForm1">
+
+<form method="post" action="/result2" id="myForm1">
     @csrf
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col" width="75" style="text-align:center;">#</th>
       <th scope="col">العبارة</th>
-      <th scope="col">إطلاقًا</th>
+      <th scope="col">غالبًا</th>
       <th scope="col">أحيانًا</th>
-      <th scope="col">دائمًا</th>
+      <th scope="col">نادرًا</th>
     </tr>
   </thead>
   <tbody>
     @foreach($questions as $key => $question)
+    @php
+    if(in_array($key, $negatives)){
+        $most_probably = 1;
+        $rarely = 3;
+    }else{
+        $most_probably = 3;
+        $rarely = 1;
+    }
+    @endphp
     <tr data-done="0">
-      <th scope="row">{{$key+1}}</th>
+      <th scope="row"  style="text-align:center;">{{$key+1}}</th>
       <td>{{$question}}</td>
-      <td><input type="radio" value="0" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-1" autocomplete="off">
-<label class="btn btn-outline-secondary" for="btn-check-outlined-{{$key}}-1">إطلاقًا</label></td>
-      <td><input type="radio" value="1" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-2" autocomplete="off">
+      <td><input   type="radio" value="{{$most_probably}}" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-1" autocomplete="off">
+<label class="btn btn-outline-secondary" for="btn-check-outlined-{{$key}}-1">غالبًا</label></td>
+      <td><input type="radio" value="2" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-2" autocomplete="off">
 <label class="btn btn-outline-secondary" for="btn-check-outlined-{{$key}}-2">أحيانًا</label></td>
-      <td><input type="radio" value="2" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-3" autocomplete="off">
-<label class="btn btn-outline-secondary" for="btn-check-outlined-{{$key}}-3">دائمًا</label></td>
+      <td><input type="radio" value="{{$rarely}}" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-3" autocomplete="off">
+<label class="btn btn-outline-secondary" for="btn-check-outlined-{{$key}}-3">نادرًا</label></td>
     </tr>
     @endforeach
   </tbody>
@@ -56,6 +64,9 @@
 
 <div class="submit-button"><button type="submit">اتمام</button></div>
 </form>
+<footer><span>
+المقياس من إعداد الدكتور رأفت رخا
+</span></footer>
 </div>
 <div id="result"></div>
 <script type="text/javascript">
