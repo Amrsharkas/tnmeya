@@ -9,8 +9,8 @@ use App\Answer;
 class TawakkolController extends Controller
 {
     public function home(){
-        Question::where('id',">",45)->delete();
-        dd("done");
+        // Question::where('id',">",45)->delete();
+        // dd("done");
         $questions = Question::orderBy('stuff_order','asc')->get();
         // $questions = [
         //     "أتحمل المسئوليات الموكلة إلي بارتياح.",
