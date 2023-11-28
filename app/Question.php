@@ -12,7 +12,7 @@ class  Question extends Model
 {
     use AllModels;
 
-    protected $table = 'question';
+    protected $table = 'questions';
 
 
     

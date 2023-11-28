@@ -11,10 +11,16 @@
         <link rel="stylesheet" href="/css/style2.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
     <script src="https://malsup.github.io/jquery.form.js"></script>
+
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
         <title>مقياس الثقة العام</title>
 
     </head>
     <body style="direction: rtl;">
+        
         <div class="header">
         <img src="/images/logo2.jpeg" class="logo">
     </div>
@@ -25,6 +31,28 @@
 
 <form method="post" action="/result2" id="myForm1">
     @csrf
+    <div id="ex2" class="modal" >
+  <div class="form-group" >
+    <label for="useremail">البريد الإلكتروني</label>
+    <input required type="email" class="form-control" id="useremail" aria-describedby="emailHelp" placeholder="البريد الإلكتروني">
+    
+  </div>
+
+  <div class="form-group" >
+    <label for="username">الاسم</label>
+    <input required type="text" class="form-control" id="username"  placeholder="الاسم">
+    
+  </div>
+
+  <div class="form-group" >
+    <label for="userphone">رقم التليفون</label>
+    <input required type="text" class="form-control" id="userphone"  placeholder="رقم التليفون">
+    
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary submit-form">اتمام</button>
+</div>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -38,7 +66,7 @@
   <tbody>
     @foreach($questions as $key => $question)
     @php
-    if(in_array($key, $negatives)){
+    if($question->is_negative == 1){
         $most_probably = 1;
         $rarely = 3;
     }else{
@@ -48,7 +76,7 @@
     @endphp
     <tr data-done="0">
       <th scope="row"  style="text-align:center;">{{$key+1}}</th>
-      <td>{{$question}}</td>
+      <td>{{$question->question}}</td>
       <td><input   type="radio" value="{{$most_probably}}" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-1" autocomplete="off">
 <label class="btn btn-outline-secondary" for="btn-check-outlined-{{$key}}-1">غالبًا</label></td>
       <td><input type="radio" value="2" name="options-{{$key}}" class="btn-check" id="btn-check-outlined-{{$key}}-2" autocomplete="off">
@@ -62,24 +90,89 @@
 
 
 
-<div class="submit-button"><button type="submit">اتمام</button></div>
+<div class="submit-button"><button type="button">اتمام</button></div>
+<input type="hidden" name="email" id="email" />
+<input type="hidden" name="name" id="name" />
+<input type="hidden" name="phone" id="phone" />
 </form>
 <footer><span>
 المقياس من إعداد الدكتور رأفت رخا
 </span></footer>
 </div>
 <div id="result"></div>
+
 <script type="text/javascript">
+    function ValidateEmail(input) {
+
+      var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+      if (input.match(validRegex)) {
+
+        
+
+        return true;
+
+      } else {
+
+        
+
+        return false;
+
+      }
+
+    }
+
+
     $(document).on('change', '.btn-check', function (e) {
 
         $(this).closest("tr").attr('data-done',1);
         $(this).closest("tr").removeClass('error');
 
     });
-    $(document).on('click', '.go-back', function (e) {
+    
+    $(document).on('click', '.submit-button', function (e) {
 
+        var unAnswered = $("table").find(`[data-done='0']`).length;
+        if(unAnswered != 0){
+            $("table").find(`[data-done='0']`).addClass('error');
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("table").find(`[data-done='0']:first`).offset().top
+            }, 1000);
+            return false; 
+        }else{
+            $(".modal").modal();
+        }
+
+    });
+    $(document).on('click', '.submit-form', function (e) {
+        if($("#useremail").val() == ''){
+            alert("Email is required");
+            return false;
+        }
+        if(!ValidateEmail($("#useremail").val())){
+            alert("Invalid Email Address");
+            return false;
+        }
+        if($("#username").val() == ''){
+            alert("Name is required");
+            return false;
+        }
+        if($("#userphone").val() == ''){
+            alert("Phone is required");
+            return false;
+        }
+        $("#email").val($("#useremail").val());
+        $("#name").val($("#username").val());
+        $("#phone").val($("#userphone").val());
+        $("#myForm1").submit();
+
+    });
+    
+    $(document).on('click', '.go-back', function (e) {
+        
         $("#quiz").show(100);
         $("#result").html("");
+        $.modal.close();
 
     });
     
@@ -107,6 +200,7 @@ $(document).ready(function() {
  
 // pre-submit callback 
 function showRequest(formData, jqForm, options) { 
+    $(".submit-form").prop('disabled', true);
     var queryString = $.param(formData); 
     var unAnswered = $("table").find(`[data-done='0']`).length;
     if(unAnswered != 0){
@@ -114,6 +208,7 @@ function showRequest(formData, jqForm, options) {
         $([document.documentElement, document.body]).animate({
             scrollTop: $("table").find(`[data-done='0']:first`).offset().top
         }, 1000);
+        $(".submit-form").prop('disabled', false);
         return false; 
     }
     return true;
@@ -132,6 +227,8 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // if the ajaxForm method was passed an Options Object with the dataType 
     // property set to 'json' then the first argument to the success callback 
     // is the json data object returned by the server 
+    $(".submit-form").prop('disabled', false);
+    $.modal.close();
     $("#quiz").hide();
     $("#result").html(responseText);
     $("html, body").animate({scrollTop: 0}, 50);

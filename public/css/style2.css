@@ -15,6 +15,12 @@ body{
 	border-bottom-left-radius: 25px;
 	font-size: 25px;
 }
+label{
+	float: right;
+}
+input{
+	direction:rtl !important;
+}
 p,table{
 	
 	font-size: 20px;
@@ -22,7 +28,12 @@ p,table{
 p{
 	margin:  50px;
 }
-
+.close-modal {
+	display: none !important;
+}
+#ex2.modal{
+	max-width:1000px !important;
+}
 .header{
 	text-align: center;
 	border-bottom: 2px solid #652f8f;
@@ -42,27 +53,31 @@ p{
     background-color: #b1daa2 !important;
     outline: none !important;
 }
+
 .submit-button{
 	padding: 10px 0;
 	text-align: center;
 	width: 100%;
 }
-.submit-button button{
+.submit-button button,.submit-form{
 	margin: 0 auto;
-	background-color: #652f8f;
-	color: #fff;
+	background-color: #652f8f !important;
+	color: #fff !important;
 	font-size: 25px;
-	border: 1px solid #652f8f;
+	border: 1px solid #652f8f !important;
 	padding: 20px 0;
 	width: 60%;
 	
 }
-.submit-button button:hover{
-	background-color: #b1daa2;
-	border: 1px solid #b1daa2;
-	color: #000;	
+.submit-button button:hover,.submit-form:hover{
+	background-color: #b1daa2 !important;
+	border: 1px solid #b1daa2 !important;
+	color: #000 !important;	
 }
-
+.submit-form{
+	width:100% !important;
+	margin-top:30px !important;
+}
 tr.error{
 	background-color: #ffe2e2;
 }

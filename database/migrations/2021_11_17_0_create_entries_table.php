@@ -15,11 +15,11 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->integer('admin_show')->default(0);
-
-       $table->integer('stuff_order')->default(0);
-
+            $table->integer('stuff_order')->default(0);
             $table->timestamps();
         });
     }
